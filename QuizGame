@@ -1,0 +1,75 @@
+import random
+
+class QuizGame:
+    def __init__(self):
+        self.score = 0
+        self.questions = {
+            'java': {
+                'easy': [
+                    ("What is the keyword to define a class in Java?", "class"),
+                    ("What is the size of int in Java?", "4"),
+                ],
+                'medium': [
+                    ("Which method is used to start a thread in Java?", "start"),
+                    ("What is the parent class of all classes in Java?", "Object"),
+                ],
+                'hard': [
+                    ("What is the default value of a boolean variable in Java?", "false"),
+                    ("Which keyword is used for garbage collection in Java?", "gc"),
+                ]
+            },
+            'python': {
+                'easy': [
+                    ("What keyword is used to define a function in Python?", "def"),
+                    ("What is the output of print(2+2) in Python?", "4"),
+                ],
+                'medium': [
+                    ("Which module in Python is used for regular expressions?", "re"),
+                    ("How do you start a comment in Python?", "#"),
+                ],
+                'hard': [
+                    ("What is the name of the built-in data type for immutable sequences of objects in Python?", "tuple"),
+                    ("Which Python function reads a line from standard input?", "input"),
+                ]
+            },
+            'c': {
+                'easy': [
+                    ("Which function is used to print something on the screen in C?", "printf"),
+                    ("What is the size of a char in C?", "1"),
+                ],
+                'medium': [
+                    ("Which keyword is used to define a constant in C?", "const"),
+                    ("What is the return type of malloc() in C?", "void*"),
+                ],
+                'hard': [
+                    ("Which header file is required for string manipulation functions in C?", "string.h"),
+                    ("What is the output of sizeof('a') in C?", "4"),
+                ]
+            }
+        }
+
+    def start_quiz(self):
+        print("Welcome to the Quiz Game!")
+        topic = input("Choose topic (java/python/c): ").lower()
+        if topic not in self.questions:
+            print("Invalid topic. Exiting...")
+            return
+
+        difficulty = input("Choose difficulty (easy/medium/hard): ").lower()
+        if difficulty not in self.questions[topic]:
+            print("Invalid difficulty level. Exiting...")
+            return
+        
+        for question, correct_answer in random.sample(self.questions[topic][difficulty], len(self.questions[topic][difficulty])):
+            answer = input(question + " ")
+            if answer.lower() == correct_answer.lower():
+                print("Correct!")
+                self.score += 1
+            else:
+                print(f"Wrong! The correct answer was {correct_answer}.")
+
+        print(f"Your final score is: {self.score}")
+
+if __name__ == "__main__":
+    game = QuizGame()
+    game.start_quiz()
